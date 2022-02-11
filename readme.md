@@ -1,4 +1,4 @@
-p5-Boilerplate-Webpack
+Physarum demo -> 
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
