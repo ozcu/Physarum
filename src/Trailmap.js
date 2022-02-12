@@ -1,20 +1,27 @@
+import p5 from "p5"
 export default class Trailmap{
-    grid
-    buffer
-    decayrate
-  
+    constructor(grid,buffer,decayRate){
+        this.grid = grid
+        this.buffer = buffer
+        this.decayRate = decayRate
+    }
+    //grid 
+    //buffer
+    //decayRate
+
+    /*
     trailmap(){
-    grid = new Array[p5.width][p5.height]
-    buffer = new Array[p5.width][p5.height]
+    grid = new Array[p5.windowWidth][p5.windowHeight]
+    buffer = new Array[p5.windowWidth][p5.windowHeight]
     decayRate = 0.59
-  }
+    } */
   
     draw(){
       p5.loadPixels()
-      for(let x = 0; x < p5.width; x++){
-        for(let y = 0; y < p5.height; y++){
-          let i = y * p5.width + x;
-          pixels[i] = p5.color(t.grid[x][y]); //not sure whats going on
+      for(let x = 0; x < p5.windowWidth; x++){
+        for(let y = 0; y < p5.windowHeight; y++){
+          let i = y * p5.windowWidth + x;
+          pixels[i] = p5.color(tm.grid[x][y]); //not sure whats going on
         }
       }
       p5.updatePixels();
@@ -22,8 +29,8 @@ export default class Trailmap{
   
     diffuse(){
       loadPixels();
-      for(let x = 0; x < p5.width; x++){
-        for(let y = 0; y < p5.height; y++){
+      for(let x = 0; x < p5.windowWidth; x++){
+        for(let y = 0; y < p5.windowHeight; y++){
           let sum = 0
           let avg = 0
           let total = 0
@@ -33,36 +40,36 @@ export default class Trailmap{
   
               let currentX,currentY
               //wrap x; 
-              if(x== p5.width-1){
+              if(x== p5.windowWidth-1){
                 currentX = 0;
               } else if(x==0){
-                currentX = p5.width-1;
+                currentX = p5.windowWidth-1;
               } else {
                 currentX = kx+x;
               }
               //wrap y
-              if(y== p5.height-1){
+              if(y== p5.windowHeight-1){
                 currentY = 0;
               } else if(y==0){
-                currentY = p5.height-1;
+                currentY = p5.windowHeight-1;
               } else {
                 currentY = ky+y;
               }
   
               let intensity = grid[currentX][currentY];
               sum += intensity;
-              total ++;
+              total =total+1;
   
             }
           }
-          avg = sum / 9.0;
+          avg = sum / 9.0; //9 cells?
           //write average to a buffer grid
           buffer[x][y] = avg;
         }
       }
       //write buffer grid onto draw grid
-      for(let x = 0; x < p5.width; x++){
-        for(let y = 0; y< p5.height; y++){
+      for(let x = 0; x < p5.windowWidth; x++){
+        for(let y = 0; y< p5.windowHeight; y++){
           grid[x][y] = buffer[x][y];
         }
       }
@@ -70,21 +77,19 @@ export default class Trailmap{
     }
   
     decay(){
-      for(let x = 0; x < p5.width; x++){
-        for(let y = 0; y < p5.height; y++){
+      for(let x = 0; x < p5.windowWidth; x++){
+        for(let y = 0; y < p5.windowHeight; y++){
           grid[x][y] *= this.decayRate;
         }
       }
     }
   
     clearBuffer(){
-      for(let x = 0; x< p5.width;x++){
-        for(let y = 0; y< p5.height; y++){
+      for(let x = 0; x< p5.windowWidth;x++){
+        for(let y = 0; y< p5.windowHeight; y++){
           buffer[x][y] = 0;
         }
       }
     }
-  
-  
   
   }
