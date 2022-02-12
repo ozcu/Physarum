@@ -6,7 +6,6 @@ import Trailmap from "./Trailmap"
 
 
 const sketch = p5 => {
-  const numFrames = 100;
 
   // Variables scoped within p5
   const canvasWidth = p5.windowWidth;
@@ -16,12 +15,14 @@ const sketch = p5 => {
 
   let cols,rows,resolution
 
-  resolution = 10
+  resolution = 2
 
-  cols = Math.floor(600 / resolution)
+  cols = Math.floor(1200 / resolution)
   rows = Math.floor(600 / resolution)
+
+  console.log(cols,rows)
   
-  //Array
+  //Construct Array
   function make2DArray(cols,rows){
     let arr = new Array(cols)
     for(let i=0;i<arr.length;i++){
@@ -38,27 +39,30 @@ const sketch = p5 => {
     }
   }
 
-//Init trailmap
+  //Init trailmap
   let tm = new Trailmap(
     grid,
     grid,
-    0.59
+    0.59  
     )
+
+    console.log(tm)
+
 
   let particles = []
   let numParticles = 100
 
-  console.log(tm)
-
+ 
   // Setup function
   p5.setup = () => {
-    p5.createCanvas(600, 600);
+    p5.createCanvas(canvasWidth, canvasHeight);
 
+    //Init Particles
     for(let i=0;i<numParticles;i++){
 
-    //Spawn particles randomly or in circle
-    let x =p5.floor(p5.random(100) * cols / 100) //cols - p5.random(3) * p5.cos(p5.radians(p5.random(360)))
-    let y =p5.floor(p5.random(100) * rows / 100) //rows - p5.random(3) * p5.sin(p5.radians(p5.random(360)))
+    //Spawn particles randomly 
+    let x =p5.floor(p5.random(100) * cols / 100) 
+    let y =p5.floor(p5.random(100) * rows / 100) 
 
     //Init particles
     particles[i] = new Particle(p5.createVector(x,y)) 
@@ -77,8 +81,10 @@ const sketch = p5 => {
     for(let i = 0; i < numParticles; i++){
       //SENSE
       particles[i].sense(tm);
+
       //MOVE
       particles[i].move();
+
       //DEPOSIT
       particles[i].deposit(tm);
     }
@@ -86,12 +92,27 @@ const sketch = p5 => {
 
     //Diffuse
     tm.diffuse()
+
     //Decay
     tm.decay()
+
     //Render
     tm.draw()
+    for(let i = 0 ; i<cols; i++){
+      for(let j = 0; j<rows; j++){
+        if(tm.grid[i][j]> 1){
 
-    //var t=0.5*(p5.frameCount-1)/numFrames;
+        let x = i * resolution
+        let y = j * resolution
+
+        //Render
+          p5.fill(255)
+          p5.stroke(0)
+          p5.rect(x,y,resolution,resolution)
+        }
+      }
+    }
+    
  
   };
 };
