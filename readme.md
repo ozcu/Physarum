@@ -1,4 +1,4 @@
-Physarum demo -> 
+Physarum demo -> https://physarum-indol.vercel.app/
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
