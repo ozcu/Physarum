@@ -103,9 +103,10 @@ export default class Particle{
       this.dir.y = Math.floor(this.rows * Math.random());
     }
 
-    updateParticle(depositAmt,maxSpeed){
+    updateParticle(depositAmt,maxSpeed,senseDist){
       this.depositAmt = depositAmt
       this.maxSpeed = maxSpeed
+      this.senseDist = senseDist
     }
 
   
