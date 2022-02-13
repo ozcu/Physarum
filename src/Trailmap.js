@@ -1,6 +1,6 @@
 import p5 from "p5"
 
-
+//p5.loadPixels()
 export default class Trailmap{
     constructor(grid,buffer,decayRate){
         this.grid = grid
@@ -8,23 +8,14 @@ export default class Trailmap{
         this.decayRate = decayRate
     }
 
-    cols = 600 // trailmap/grid feature refactor later
-    rows = 300
+    cols = 240 // trailmap/grid feature refactor later
+    rows = 120
 
-  
+  //what if arrow function?
     draw(){
   
-     /* for(let i = 0 ; i<this.cols; i++){
-        for(let j = 0; j<this.rows; j++){
 
-          if(this.grid[i][j] > 1){
-
-            this.grid[i][j] = 5
-          }
-        }
-      } */
-
-/*  CANNOT FUNCTION WITH LOAD PIXELS
+    /*  CANNOT FUNCTION WITH LOAD PIXELS
       p5.loadPixels()
       for(let x = 0; x < p5.windowWidth; x++){
         for(let y = 0; y < p5.windowHeight; y++){
@@ -37,7 +28,7 @@ export default class Trailmap{
     }
   
     diffuse(){
-      //p5.loadPixels();
+      //p5.loadPixels()
       for(let x = 0; x < this.cols; x++){
         for(let y = 0; y < this.rows; y++){
           let sum = 0
@@ -49,7 +40,7 @@ export default class Trailmap{
   
               let currentX,currentY
               //wrap x; 
-              if(x== this.cols-1){
+              if(x == this.cols-1){
                 currentX = 0;
               } else if(x==0){
                 currentX = this.cols-1;
@@ -67,11 +58,11 @@ export default class Trailmap{
   
               let intensity = this.grid[currentX][currentY];
               sum += intensity;
-              total =total+1;
   
             }
           }
-          avg = sum / 9.0; //9 cells?
+          avg = sum / 9.0; //9 cells
+
           //write average to a buffer grid
           this.buffer[x][y] = avg;
         }
@@ -92,7 +83,7 @@ export default class Trailmap{
         }
       }
     }
-  
+   //Cannot load pixels not needed now
     clearBuffer(){
       for(let x = 0; x< this.cols;x++){
         for(let y = 0; y< this.rows; y++){
