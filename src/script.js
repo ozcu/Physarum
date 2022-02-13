@@ -21,6 +21,20 @@ const sketch = p5 => {
   rows = Math.floor(600 / resolution)
 
   console.log(cols,rows)
+
+  //Slider Setup
+
+  let depositSlider = p5.createSlider(20, 800, 170, 10);
+  depositSlider.position(10, 600);
+  depositSlider.style('width', '80px');
+
+  let maxSpeedSlider = p5.createSlider(1, 20, 5.8, 0.1);
+  maxSpeedSlider.position(10, 630);
+  maxSpeedSlider.style('width', '80px');
+
+  let senseDistSlider = p5.createSlider(1, 20, 7.2, 0.1);
+  senseDistSlider.position(10, 660);
+  senseDistSlider.style('width', '80px');
   
   //Construct Array
   function make2DArray(cols,rows){
@@ -56,8 +70,8 @@ const sketch = p5 => {
   p5.setup = () => {
     p5.createCanvas(canvasWidth, canvasHeight);
 
-     //Init trailmap
 
+    //Init trailmap
     tm = new Trailmap(
       grid,
       grid,
@@ -125,10 +139,19 @@ const sketch = p5 => {
       }
     }
 
+    //Sliders
+    depositAmt = depositSlider.value()
+    maxSpeed = maxSpeedSlider.value()
+    senseDist = senseDistSlider.value()
+    for(let i = 0; i < numParticles; i++){
+      particles[i].updateParticle(depositAmt,maxSpeed,senseDist)
+    }
+
+
     p5.mousePressed = () =>{
-      console.log('pressed')
       for(let i = 0; i < numParticles; i++){
         particles[i].resetPos();
+        console.log(p5.mouseX,p5.mouseY)
       }
      
 
