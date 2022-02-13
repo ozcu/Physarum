@@ -1,27 +1,29 @@
 import p5 from "p5"
 
 export default class Particle{ 
-    constructor(pos){
+    constructor(pos,depositAmt,maxSpeed,senseDist){
  
       this.pos = pos
+      this.depositAmt = depositAmt
+      this.maxSpeed = maxSpeed
+      this.senseDist = senseDist
     }
-  
-    //pos = new p5.Vector(this.x,this.y)
+
     dir = new p5.Vector(0,0)
   
-    heading = Math.floor(Math.random(16))  //16 heading
-    depositAmt = 170
-    maxSpeed = 5.8
-    senseDist = 7.2
+    heading = Math.floor(16 * Math.random())  //16 heading
 
-    cols = 600 // trailmap/grid feature refactor later
-    rows = 300
+
+    cols = 240 // trailmap/grid feature refactor later
+    rows = 120
 
     
     
     show(){
-      p5.stroke(255)
-      p5.point(this.pos.x,this.pos.y)
+      //pushStyle();
+      //stroke(255);
+      //point(pos.x,pos.y);
+      //popStyle();
     }
   
     deposit(tm){
@@ -42,7 +44,7 @@ export default class Particle{
         let look = this.heading + i
 
         //convert it to radians
-        let degrees = look * 22.5 // 16 heading
+        let degrees = look * 22.5 // 16 heading dir
         let radians = degrees * (Math.PI/180);
         let angle = radians
   
@@ -96,17 +98,13 @@ export default class Particle{
     }
   
     resetPos(){
-      if(this.pos.x > this.cols-1 || this.pos.x < 0 ||
-        this.pos.y > this.rows-1 || this.pos.y < 0){
-          this.pos.x = p5.floor(p5.random(this.cols));
-          this.pos.y = p5.floor(p5.random(this.rows));
-          this.dir = p5.Vector.random2D();
-      }
+
+      this.pos.x = Math.floor(this.cols * Math.random());
+      this.pos.y = Math.floor(this.rows * Math.random());
+      this.dir.x = Math.floor(this.cols * Math.random());
+      this.dir.y = Math.floor(this.rows * Math.random());
     }
 
-    reset(){
-      this.pos = p5.Vector(random(60),random(60))
-    }
   
   }
   
