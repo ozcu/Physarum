@@ -33,8 +33,7 @@ export default class Trailmap{
         for(let y = 0; y < this.rows; y++){
           let sum = 0
           let avg = 0
-          let total = 0
-  
+
           for(let kx = -1; kx < 2; kx++){
             for(let ky = -1; ky < 2; ky++){
   

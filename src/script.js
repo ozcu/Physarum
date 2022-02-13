@@ -24,11 +24,11 @@ const sketch = p5 => {
 
   //Slider Setup
 
-  let depositSlider = p5.createSlider(20, 800, 170, 10);
+  let depositSlider = p5.createSlider(20, 800, 140, 10);
   depositSlider.position(10, 600);
   depositSlider.style('width', '80px');
 
-  let maxSpeedSlider = p5.createSlider(1, 20, 5.8, 0.1);
+  let maxSpeedSlider = p5.createSlider(1, 20, 5.9, 0.1);
   maxSpeedSlider.position(10, 630);
   maxSpeedSlider.style('width', '80px');
 
@@ -60,10 +60,10 @@ const sketch = p5 => {
 
 
   let particles = []
-  let numParticles = 100
+  let numParticles = 50
 
-  let depositAmt = 170 //110
-  let maxSpeed = 5.8 // 8.8
+  let depositAmt = 140 //110
+  let maxSpeed = 5.9 // 8.8
   let senseDist = 7.2 // 7.2
  
   // Setup function
@@ -122,20 +122,21 @@ const sketch = p5 => {
 
     //Decay
     tm.decay()
+   
 
     //Render
     //tm.draw()
 
     for(let i = 0 ; i<cols; i++){
       for(let j = 0; j<rows; j++){
-        if(tm.grid[i][j]> 1){
+        if(tm.grid[i][j]> 0.2){
 
         let x = i * resolution
         let y = j * resolution
 
         //Render
-          p5.fill(255)
-          p5.stroke(0)
+          p5.fill(tm.grid[i][j] * 50)
+          p5.stroke(tm.grid[i][j] * 50)
           p5.rect(x,y,resolution,resolution)
         }
       }
@@ -153,9 +154,7 @@ const sketch = p5 => {
     p5.mousePressed = () =>{
       for(let i = 0; i < numParticles; i++){
         particles[i].resetPos();
-        console.log(p5.mouseX,p5.mouseY)
       }
-     
 
     }
     
