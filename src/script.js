@@ -15,7 +15,7 @@ const sketch = p5 => {
 
   let cols,rows,resolution
 
-  resolution = 2
+  resolution = 5
 
   cols = Math.floor(1200 / resolution)
   rows = Math.floor(600 / resolution)
@@ -40,32 +40,43 @@ const sketch = p5 => {
   }
 
   //Init trailmap
-  let tm = new Trailmap(
-    grid,
-    grid,
-    0.59  
-    )
-
-    console.log(tm)
+  let tm 
+  let decayRate = 0.59
+    
 
 
   let particles = []
   let numParticles = 100
 
+  let depositAmt = 170 //110
+  let maxSpeed = 5.8 // 8.8
+  let senseDist = 7.2 // 7.2
  
   // Setup function
   p5.setup = () => {
     p5.createCanvas(canvasWidth, canvasHeight);
 
+     //Init trailmap
+
+    tm = new Trailmap(
+      grid,
+      grid,
+      decayRate  
+      )
+      console.log(tm)
+
     //Init Particles
     for(let i=0;i<numParticles;i++){
 
-    //Spawn particles randomly 
-    let x =p5.floor(p5.random(100) * cols / 100) 
-    let y =p5.floor(p5.random(100) * rows / 100) 
+    //Spawn particles randomly or in circle
+    let x  = cols/2 + p5.random(20) * p5.cos(p5.radians(p5.random(360)));
+    let y  = rows/2 + p5.random(20) * p5.sin(p5.radians(p5.random(360)));
+
+    //let x =p5.floor(p5.random(100) * cols / 100) 
+    //let y =p5.floor(p5.random(100) * rows / 100) 
 
     //Init particles
-    particles[i] = new Particle(p5.createVector(x,y)) 
+    particles[i] = new Particle(p5.createVector(x,y),depositAmt,maxSpeed,senseDist) 
     
     //Deposit to grid 
     particles[i].deposit(tm);
@@ -97,7 +108,8 @@ const sketch = p5 => {
     tm.decay()
 
     //Render
-    tm.draw()
+    //tm.draw()
+
     for(let i = 0 ; i<cols; i++){
       for(let j = 0; j<rows; j++){
         if(tm.grid[i][j]> 1){
@@ -111,6 +123,15 @@ const sketch = p5 => {
           p5.rect(x,y,resolution,resolution)
         }
       }
+    }
+
+    p5.mousePressed = () =>{
+      console.log('pressed')
+      for(let i = 0; i < numParticles; i++){
+        particles[i].resetPos();
+      }
+     
+
     }
     
  
