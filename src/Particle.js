@@ -105,6 +105,11 @@ export default class Particle{
       this.dir.y = Math.floor(this.rows * Math.random());
     }
 
+    updateParticle(depositAmt,maxSpeed){
+      this.depositAmt = depositAmt
+      this.maxSpeed = maxSpeed
+    }
+
   
   }
   
