@@ -44,10 +44,7 @@ export default class Particle{
         //convert it to radians
         let degrees = look * 22.5 // 16 heading dir
         let radians = degrees * (Math.PI/180);
-        let angle = radians
-  
-        let offset = new p5.Vector.fromAngle(angle).mult(this.senseDist)
-        
+        let offset = new p5.Vector.fromAngle(radians).mult(this.senseDist)
         
         //Boundaries
         let currentX = Math.floor(this.pos.x + offset.x) 
@@ -64,7 +61,7 @@ export default class Particle{
         } else if(currentY < 0){
           currentY = this.rows-1;
         }
-        //not sure whats going here check later
+        //Select max deposit heading
         nextIntensity = tm.grid[currentX][currentY];
           if(maxIntensity < nextIntensity){
             maxIntensity = nextIntensity;
