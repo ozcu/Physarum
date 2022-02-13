@@ -75,7 +75,9 @@ const sketch = p5 => {
     tm = new Trailmap(
       grid,
       grid,
-      decayRate  
+      decayRate,
+      cols,
+      rows  
       )
       console.log(tm)
 
@@ -90,7 +92,7 @@ const sketch = p5 => {
     //let y =p5.floor(p5.random(100) * rows / 100) 
 
     //Init particles
-    particles[i] = new Particle(p5.createVector(x,y),depositAmt,maxSpeed,senseDist) 
+    particles[i] = new Particle(p5.createVector(x,y),depositAmt,maxSpeed,senseDist,cols,rows) 
     
     //Deposit to grid 
     particles[i].deposit(tm);

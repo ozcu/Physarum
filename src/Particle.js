@@ -1,12 +1,14 @@
 import p5 from "p5"
 
 export default class Particle{ 
-    constructor(pos,depositAmt,maxSpeed,senseDist){
+    constructor(pos,depositAmt,maxSpeed,senseDist,cols,rows){
  
       this.pos = pos
       this.depositAmt = depositAmt
       this.maxSpeed = maxSpeed
       this.senseDist = senseDist
+      this.cols = cols
+      this.rows = rows
     }
 
     dir = new p5.Vector(0,0)
@@ -14,10 +16,6 @@ export default class Particle{
     heading = Math.floor(16 * Math.random())  //16 heading
 
 
-    cols = 240 // trailmap/grid feature refactor later
-    rows = 120
-
-    
     
     show(){
       //pushStyle();

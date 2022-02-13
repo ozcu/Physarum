@@ -2,14 +2,14 @@ import p5 from "p5"
 
 //p5.loadPixels()
 export default class Trailmap{
-    constructor(grid,buffer,decayRate){
+    constructor(grid,buffer,decayRate,cols,rows){
         this.grid = grid
         this.buffer = buffer
         this.decayRate = decayRate
+        this.cols = cols
+        this.rows = rows
     }
 
-    cols = 240 // trailmap/grid feature refactor later
-    rows = 120
 
   //what if arrow function?
     draw(){
